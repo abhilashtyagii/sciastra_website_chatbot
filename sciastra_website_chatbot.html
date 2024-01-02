@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SciAstra Chatbot by Abhilash Tyagi</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    #chat-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  border: 1px solid #fdfdfd;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: url('star_image.avif') repeat;
+  background-size: auto;
+  animation: sparkle 5s infinite linear;
+}
+
+    @keyframes sparkle {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 200%; }
+    }
+     
+    
+
+    #chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    #user-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: rgba(0, 26, 51, 0.9);
+    }
+
+    #user-input input {
+      flex: 1;
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      color: #f4f4f4;
+      background-color: rgba(243, 235, 235, 0.1);
+      
+      text-shadow: 1px 1px 1px black;
+    }
+
+    #send-button {
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .user-message {
+      background-color: #3498db; /* Blue background for user messages */
+      padding: 4px;
+      margin-bottom: 4px;
+      border-radius: px;
+    }
+
+    .chatbot-message {
+      background-color: #2ecc71; /* Green background for chatbot messages */
+      padding: 4px;
+      margin-bottom: 4px;
+      border-radius: 4px;
+    }
+
+    .highlight {
+      background-color: yellow;
+      padding: 2px;
+      display: inline; 
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chat-container">
+  <div id="chat-messages"></div>
+  <div id="user-input">
+    <input type="text" id="user-message" placeholder="Type your message...">
+    <button id="send-button" onclick="sendMessage()">Send</button>
+  </div>
+  <div id="error-message"></div>
+</div>
+
+<script>
+  const chatMessages = document.getElementById('chat-messages');
+  const userMessageInput = document.getElementById('user-message');
+  const errorMessageDiv = document.getElementById('error-message');
+  
+  function sendMessage() {
+    const userMessage = userMessageInput.value;
+    displayMessage('User', userMessage, 'user-message');
+    userMessageInput.value = '';
+
+   
+    const predefinedResponses = {
+      'hello': 'Hello! How can I help you?',
+      'hi': 'Hi there! What can I do for you?',
+      'how are you': 'I am just a chatbot, but thanks for asking!',
+      'tell me about sciastra': 'SciAstra is the biggest community of science scholars in India for IISER Aptitude test (IAT), National Entrance Screening Test (NEST), ISI, CMI, and IACS..',
+      'what services does sciastra offer': 'SciAstra offers a range of courses and guide students who want to become scientists and pursue research by helping them secure admissions in the top colleges for the same like IISER, NISER, CEBS, ICAR, CMI, etc',
+      'contact information': 'You can contact SciAstra support by [contact information].',
+      'bye': 'Goodbye! If you have more questions, feel free to ask.',
+      'who is the CEO of sciastra': 'The CEO of SciAstra is Mr. Vivek Dwivedi.',
+      'where is sciastra located': 'SciAstra is located in Kolkata, Pune, Mohali, Bhopal, Thiruvananthapuram, Tirupati, and Berhampur.',
+      'can I work at sciastra': 'We are always looking for talented individuals! Check our careers page for opportunities.',
+      'tell me a fun fact about sciastra': 'Sure, here\'s a fun fact:The best things about SciAstra are the test series and study material that they provide along with the mentorship.'
+      
+    };
+
+    const botResponse = predefinedResponses[userMessage.toLowerCase()] || 'I\'m sorry, I don\'t understand that.';
+
+    displayMessage('Chatbot', botResponse, 'chatbot-message');
+  }
+
+  function displayMessage(sender, message, className) {
+    const messageElement = document.createElement('div');
+    messageElement.innerHTML = `<strong>${sender}:</strong> <span class="${className}">${message}</span>`;
+    chatMessages.appendChild(messageElement);
+    chatMessages.appendChild(document.createElement('br')); 
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
